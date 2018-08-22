@@ -1,13 +1,12 @@
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-import model.Emprunt;
-import model.Livre;
-import services.DaoPizza;
-import services.IDaoPizza;
+import banque.Banque;
+import banque.Client;
+import banque.Compte;
+import banque.Operation;
 
 public class TestJpa {
 
@@ -17,19 +16,28 @@ public class TestJpa {
 	}
 	
 	public static void main(String[] args) {
-		EntityManagerFactory entityFactory = new Persistence().createEntityManagerFactory("pu_essai");
+		EntityManagerFactory entityFactory = new Persistence().createEntityManagerFactory("banque");
 		EntityManager entityManager = entityFactory.createEntityManager();
-		IDaoPizza idao = new DaoPizza(entityManager);
+		Client c = new Client()	;
+		Banque ba = new Banque();
+		Compte cpt = new Compte();
+		Operation o = new Operation();
 		
-		Livre l = idao.find(1);
+		EntityTransaction tr = entityManager.getTransaction();
+		tr.begin();
+		entityManager.persist(c);
+		entityManager.persist(ba);
+		entityManager.persist(o);
+		entityManager.persist(cpt);
+		tr.commit();
+		//IDaoPizza idao = new DaoPizza(entityManager);
+		//Livre l = idao.find(1);
 		//System.out.println( l.getTitre());
 	
-		Emprunt e = new Emprunt();
+		//Emprunt e = new Emprunt();
 		//System.out.println(idao.searchEmprunt(1).getLivre().get(0).getTitre());
-		List<Emprunt> le = idao.searchEmpruntToClient("YU").getEmprunt();
-		for (Emprunt em : le){
-			System.out.println(em.getId());
-		}
+		//List<Emprunt> le = idao.searchEmpruntToClient("YU").getEmprunt();
+		
 
 	}
 	
