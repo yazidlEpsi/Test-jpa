@@ -12,7 +12,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name="Banque")
 public class Banque {
-
+/*
+kjbdfqjkbf
+*/
 	@Id
 	@GeneratedValue
 	private Long id_banque ;
